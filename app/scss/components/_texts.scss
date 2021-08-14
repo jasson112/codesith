@@ -1,0 +1,27 @@
+h1, h2, h3, h4{
+    color: #F0DB18;
+    @include font-lucky;
+    &.lighted{
+        border: 1px solid #F0DB18;
+        text-align: center;
+        padding: 6px 8px;
+        border-radius: 8px;
+    }
+}
+
+p{
+    color: #E5E5E5;
+    @include font-rokkitt;
+    font-size: 16px;
+    &.is-center{
+        text-align: center;
+    }
+    &.is-title{
+        font-size: 24px;
+        margin: 0;
+    }
+    &.is-subtitle{
+        font-size: 14px;
+        margin: 0;
+    }
+}

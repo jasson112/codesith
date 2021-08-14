@@ -1,0 +1,21 @@
+body{
+    background-color: #020F1B;
+    color: #E5E5E5;
+}
+
+:root {
+  --swiper-theme-color: #F0DB18;
+}
+
+.swiper-container {
+  width: 100%;
+  height: 100%;
+  .swiper-pagination{
+    position: relative;
+  }
+}
+
+
+footer{
+  height: 200px;
+}

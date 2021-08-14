@@ -135,3 +135,4 @@ node_modules/
 *.lock
 gcloud.json
 .env
+.vscode

@@ -1,0 +1,28 @@
+@mixin font-rokkitt {
+    font-family: $rokkitt;   
+    font-weight: 400;
+}
+
+@mixin font-lucky {
+    font-family: $lucky;
+    font-weight: 400;
+}
+
+
+@mixin respond($breakpoint) {
+  @if ($breakpoint == tablet) {
+    @media only screen and (min-width: $tablet) {
+      @content;
+    }
+  }
+  @if ($breakpoint == desktop) {
+    @media only screen and (min-width: $desktop) {
+      @content;
+    }
+  }
+  @if ($breakpoint == desktop-large) {
+    @media only screen and (min-width: $desktop-large) {
+      @content;
+    }
+  }
+}

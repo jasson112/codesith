@@ -1,0 +1,38 @@
+.profile{
+    display: block;
+    img{
+        display: block;
+        margin: 0 auto;
+    }
+}
+
+.star{
+    position: fixed;
+    bottom: -14vh;
+    z-index: 1;
+    width: 70%;
+    transform: translate(-50%, 0);
+    left: 50%;
+    img{
+        display: block;
+        margin: 0 auto;
+        width: 100%;
+    }
+}
+
+.media__list{
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    width: 100%;
+    flex-flow: wrap;
+    justify-content: space-between;
+    .list__item{
+        //padding: 12px;
+        p{
+            font-size: 18px;
+            text-align: center;
+        }
+    }
+}

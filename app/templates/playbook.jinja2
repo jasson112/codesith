@@ -1,17 +1,108 @@
 {% extends "layout.jinja2" %}
 {% block content %}
 <section class="container">
+  <h1>MI PLAYBOOK</h1>
+</section>
+<hr>
+<section class="container">
+  <h1>Titles</h1>
+  <h2>H1 Title</h2>
+  <h3>H2 Title</h3>
+  <h4>H3 Title</h4>
+  <h1 class="lighted">H1 Title lighted</h1>
+</section>
+<hr>
+<section class="container">
+  <h1>Media</h1>
+  <h2>Profile</h2>
   <picture class="profile">
     <img src="static/dist/images/profile.png">
   </picture>
-  <h1 class="lighted">Code Sith</h1>
+</section>
+<hr>
+<section class="container">
+  <h1>Parrafo</h1>
+  <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vitae tincidunt semper etiam auctor tincidunt odio enim, quam. Quis elementum suspendisse malesuada aliquet dolor feugiat. Aliquet risus
+    enim
+    blandit accumsan. Arcu enim, tellus nulla volutpat diam, tincidunt rhoncus sollicitudin. Nibh amet nisl neque nibh.</p>
+  <h2>Parrafo centrado</h2>
   <p class="is-center">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vitae tincidunt semper etiam auctor tincidunt odio enim, quam. Quis elementum suspendisse malesuada aliquet dolor
     feugiat. Aliquet risus
     enim
     blandit accumsan. Arcu enim, tellus nulla volutpat diam, tincidunt rhoncus sollicitudin. Nibh amet nisl neque nibh.</p>
+  <h3>Parrafo titulo</h3>
+  <p class="is-title">Soy un parrafo titulo</p>
+  <h4>Parrafo titulo</h4>
+  <p class="is-subtitle">Soy un parrafo subtitulo</p>
 </section>
+<hr>
 <section class="container">
-  <h2 class="lighted">Trabajo | Experiencia</h2>
+  <h1>Lista de imagenes</h1>
+  <h2>Simple</h2>
+  <ul class="media__list">
+    <li class="list__item">
+      <picture>
+        <img src="static/dist/images/phplogo.png">
+      </picture>
+    </li>
+    <li class="list__item">
+      <picture>
+        <img src="static/dist/images/phplogo.png">
+      </picture>
+    </li>
+    <li class="list__item">
+      <picture>
+        <img src="static/dist/images/phplogo.png">
+      </picture>
+    </li>
+    <li class="list__item">
+      <picture>
+        <img src="static/dist/images/phplogo.png">
+      </picture>
+    </li>
+    <li class="list__item">
+      <picture>
+        <img src="static/dist/images/phplogo.png">
+      </picture>
+    </li>
+  </ul>
+  <h2>Con texto !</h2>
+  <ul class="media__list">
+    <li class="list__item">
+      <picture>
+        <img src="static/dist/images/phplogo.png">
+      </picture>
+      <p>PHP</p>
+    </li>
+    <li class="list__item">
+      <picture>
+        <img src="static/dist/images/phplogo.png">
+      </picture>
+      <p>PHP</p>
+    </li>
+    <li class="list__item">
+      <picture>
+        <img src="static/dist/images/phplogo.png">
+      </picture>
+      <p>PHP</p>
+    </li>
+    <li class="list__item">
+      <picture>
+        <img src="static/dist/images/phplogo.png">
+      </picture>
+      <p>PHP</p>
+    </li>
+    <li class="list__item">
+      <picture>
+        <img src="static/dist/images/phplogo.png">
+      </picture>
+      <p>PHP</p>
+    </li>
+  </ul>
+</section>
+<hr>
+<section class="container">
+  <h1>Lista de trabajos</h1>
   <div class="swiper-container work__list">
     <div class="swiper-wrapper">
       <article class="swiper-slide work__item">
@@ -175,63 +266,5 @@
     <div class="swiper-button-prev"></div>
     <div class="swiper-pagination"></div>
   </div>
-</section>
-<section class="container">
-  <h2 class="lighted">Tecnologias</h2>
-  <ul class="media__list">
-    <li class="list__item">
-      <picture>
-        <img src="static/dist/images/phplogo.png">
-      </picture>
-      <p>PHP</p>
-    </li>
-    <li class="list__item">
-      <picture>
-        <img src="static/dist/images/phplogo.png">
-      </picture>
-      <p>PHP</p>
-    </li>
-    <li class="list__item">
-      <picture>
-        <img src="static/dist/images/phplogo.png">
-      </picture>
-      <p>PHP</p>
-    </li>
-    <li class="list__item">
-      <picture>
-        <img src="static/dist/images/phplogo.png">
-      </picture>
-      <p>PHP</p>
-    </li>
-    <li class="list__item">
-      <picture>
-        <img src="static/dist/images/phplogo.png">
-      </picture>
-      <p>PHP</p>
-    </li>
-  </ul>
-</section>
-<section class="container">
-  <h2 class="lighted">Más Sobre mi</h2>
-  <ul class="media__list">
-    <li class="list__item">
-      <picture>
-        <img src="static/dist/images/phplogo.png">
-      </picture>
-      <p>PHP</p>
-    </li>
-    <li class="list__item">
-      <picture>
-        <img src="static/dist/images/phplogo.png">
-      </picture>
-      <p>PHP</p>
-    </li>
-    <li class="list__item">
-      <picture>
-        <img src="static/dist/images/phplogo.png">
-      </picture>
-      <p>PHP</p>
-    </li>
-  </ul>
 </section>
 {% endblock %}
