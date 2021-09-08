@@ -8,14 +8,40 @@ FROM mcr.microsoft.com/vscode/devcontainers/python:0-${VARIANT}
 ARG INSTALL_NODE="true"
 ARG NODE_VERSION="lts/*"
 RUN if [ "${INSTALL_NODE}" = "true" ]; then su vscode -c "umask 0002 && . /usr/local/share/nvm/nvm.sh && nvm install ${NODE_VERSION} 2>&1"; fi
+# Installing additional OS Packages
+RUN apt-get update \
+  && apt-get -y install --no-install-recommends \
+  curl \
+  git-core \
+  gnupg \
+  linuxbrew-wrapper \
+  locales \
+  zsh \
+  wget \
+  tree \
+  jq \
+  ca-certificates \
+  apt-transport-https \
+  lsb-release 
 
 # [Optional] If your pip requirements rarely change, uncomment this section to add them to the image.
 COPY requirements.txt /tmp/pip-tmp/
 RUN pip3 --disable-pip-version-check --no-cache-dir install -r /tmp/pip-tmp/requirements.txt && rm -rf /tmp/pip-tmp
-
 # [Optional] Uncomment this section to install additional OS packages.
 # RUN apt-get update && export DEBIAN_FRONTEND=noninteractive \
 #     && apt-get -y install --no-install-recommends <your-package-list-here>
 
 # [Optional] Uncomment this line to install global node packages.
 # RUN su vscode -c "source /usr/local/share/nvm/nvm.sh && npm install -g <your-package-here>" 2>&1
+WORKDIR /home/vscode
+# Install Pulumi
+RUN if [ "$PULUMI_VERSION" = "latest" ]; then \
+    curl -fsSL https://get.pulumi.com/ | bash; \
+  else \
+    curl -fsSL https://get.pulumi.com/ | bash -s -- --version $(echo $PULUMI_VERSION | cut -c 2-); \
+  fi && \
+  mv ~/.pulumi/bin/* /usr/bin
+
+# Install global tools
+RUN yarn global add \ 
+  azure-functions-core-tools@3 --unsafe-perm true

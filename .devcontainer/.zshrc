@@ -1,0 +1,4 @@
+DISABLE_AUTO_UPDATE=true
+DISABLE_UPDATE_PROMPT=true
+
+export PATH=$PATH:~/.pulumi/bin

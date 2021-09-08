@@ -7,7 +7,13 @@ def login():
     return render_template('home/index.jinja2')
 
 
-@app.route('/playbook', methods=['GET', 'POST'])
+@app.route('/blog/1/', methods=['GET', 'POST'])
+def blog1():
+    """Home Sweet home !."""
+    return render_template('blog/index.jinja2')
+
+
+@app.route('/playbook/', methods=['GET', 'POST'])
 def playbook():
     """playbook"""
     return render_template('playbook.jinja2')

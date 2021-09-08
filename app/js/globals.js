@@ -3,16 +3,46 @@ import Swiper, { Navigation, Pagination } from 'swiper';
 Swiper.use([Navigation, Pagination]);
 
 // eslint-disable-next-line no-unused-vars
-const swiper = new Swiper('.work__list', {
+const swiperExp = new Swiper('.experience__list', {
   slidesPerView: 'auto',
   spaceBetween: 30,
   centeredSlides: true,
   navigation: {
-    nextEl: '.swiper-button-next',
-    prevEl: '.swiper-button-prev',
+    nextEl: '.experience-next',
+    prevEl: '.experience-prev',
   },
   pagination: {
-    el: '.swiper-pagination',
+    el: '.experience-pagination',
     clickable: true,
+  },
+  breakpoints: {
+    // when window width is >= 640px
+    1200: {
+      slidesPerView: 3,
+      spaceBetween: 40,
+      loop: true,
+    },
+  },
+});
+
+// eslint-disable-next-line no-unused-vars
+const swiperBlog = new Swiper('.blog__list', {
+  slidesPerView: 'auto',
+  spaceBetween: 30,
+  centeredSlides: true,
+  navigation: {
+    nextEl: '.blog-next',
+    prevEl: '.blog-prev',
+  },
+  pagination: {
+    el: '.blog-pagination',
+    clickable: true,
+  },
+  breakpoints: {
+    // when window width is >= 640px
+    1200: {
+      slidesPerView: 3,
+      spaceBetween: 40,
+    },
   },
 });

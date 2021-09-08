@@ -1,0 +1,25 @@
+version: "3"
+
+services:
+  app:
+    env_file: devcontainer.env
+    build:
+      context: .
+      dockerfile: Dockerfile
+      args:
+        # [Choice] Node.js version: 14, 12, 10
+        VARIANT: 3
+        INSTALL_NODE: "true"
+        NODE_VERSION: "lts/*"
+    volumes:
+      - ..:/workspace:cached
+      - ./.zshrc:/home/vscode/.zshrc:cached
+      - node-modules-cache:/workspace/node_modules
+      - node-modules-infrastructure-cache:/workspace/iac/node_modules
+
+    # Overrides default command so things don't shut down after the process ends.
+    command: sleep infinity
+
+volumes:
+  node-modules-cache:
+  node-modules-infrastructure-cache:

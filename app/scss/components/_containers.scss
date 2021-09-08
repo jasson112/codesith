@@ -1,4 +1,13 @@
 .container{
     width: 300px;
     margin: 0 auto;
+    //desktop
+    @include respond("desktop") {
+      width: 1250px;
+      display: flex;
+      flex-flow: column;
+      align-items: center;
+      justify-content: center;
+    }
 }
+

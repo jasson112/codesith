@@ -3,20 +3,33 @@
     img{
         display: block;
         margin: 0 auto;
+        width: 100px;
+        height: 100px;
+        //desktop
+        @include respond("desktop") {
+          width: 200px;
+          height: 200px;
+        }
     }
 }
 
 .star{
-    position: fixed;
-    bottom: -14vh;
+    //position: fixed;
+    bottom: -20vh;
     z-index: 1;
-    width: 70%;
+    width: 100%;
     transform: translate(-50%, 0);
     left: 50%;
+    @include respond("desktop") {
+      bottom: -24vh;
+    }
     img{
         display: block;
         margin: 0 auto;
-        width: 100%;
+        width: 300px;
+        @include respond("desktop") {
+          width: 500px;
+        }
     }
 }
 
@@ -30,9 +43,27 @@
     justify-content: space-between;
     .list__item{
         //padding: 12px;
+        a{
+          text-decoration: underline;
+          text-decoration-color: #E5E5E5;
+        }
         p{
             font-size: 18px;
             text-align: center;
+            //desktop
+            @include respond("desktop") {
+              font-size: 30px;
+            }
+        }
+        picture{
+          display: block;
+          img{
+            width: 40px;
+            @include respond("desktop") {
+              width: 200px;
+              height: auto;
+            }
+          }
         }
     }
 }
