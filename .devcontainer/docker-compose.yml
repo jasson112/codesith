@@ -7,8 +7,7 @@ services:
       context: .
       dockerfile: Dockerfile
       args:
-        # [Choice] Node.js version: 14, 12, 10
-        VARIANT: 3
+        VARIANT: "3.7"
         INSTALL_NODE: "true"
         NODE_VERSION: "lts/*"
     volumes:

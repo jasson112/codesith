@@ -1,7 +1,7 @@
 # See here for image contents: https://github.com/microsoft/vscode-dev-containers/tree/v0.187.0/containers/python-3/.devcontainer/base.Dockerfile
 
 # [Choice] Python version: 3, 3.9, 3.8, 3.7, 3.6
-ARG VARIANT="3.9"
+ARG VARIANT="3.7"
 FROM mcr.microsoft.com/vscode/devcontainers/python:0-${VARIANT}
 
 # [Option] Install Node.js
@@ -14,7 +14,6 @@ RUN apt-get update \
   curl \
   git-core \
   gnupg \
-  linuxbrew-wrapper \
   locales \
   zsh \
   wget \
@@ -22,7 +21,8 @@ RUN apt-get update \
   jq \
   ca-certificates \
   apt-transport-https \
-  lsb-release 
+  lsb-release \
+  azure-cli
 
 # [Optional] If your pip requirements rarely change, uncomment this section to add them to the image.
 COPY requirements.txt /tmp/pip-tmp/
@@ -36,9 +36,9 @@ RUN pip3 --disable-pip-version-check --no-cache-dir install -r /tmp/pip-tmp/requ
 WORKDIR /home/vscode
 # Install Pulumi
 RUN if [ "$PULUMI_VERSION" = "latest" ]; then \
-    curl -fsSL https://get.pulumi.com/ | bash; \
+  curl -fsSL https://get.pulumi.com/ | bash; \
   else \
-    curl -fsSL https://get.pulumi.com/ | bash -s -- --version $(echo $PULUMI_VERSION | cut -c 2-); \
+  curl -fsSL https://get.pulumi.com/ | bash -s -- --version $(echo $PULUMI_VERSION | cut -c 2-); \
   fi && \
   mv ~/.pulumi/bin/* /usr/bin
 

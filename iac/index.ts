@@ -59,7 +59,3 @@ const storageAccountKeys = pulumi
 //Endpoint definition !
 export const primaryStorageKey = storageAccountKeys.keys[0].value;
 export const staticEndpoint = storageAccount.primaryEndpoints.web;
-export const appEndpoint = app.defaultHostName.apply(
-  //Send name param for this endpoint ex: ?name=tales
-  (ep) => `https://${ep}`
-);
