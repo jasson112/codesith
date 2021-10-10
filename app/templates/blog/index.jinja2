@@ -1,12 +1,304 @@
-{% extends "layout.jinja2" %}
-{% block content %}
+{% extends "layout.jinja2" %} {% block content %}
 <section class="container">
   <picture class="profile">
-    <img src="/static/dist/images/space.jpg">
+    <img src="/static/dist/images/space.jpg" />
   </picture>
   <h1 class="lighted">Como programarse un Blog con las 3 B's</h1>
   <p class="is-subtitle is-center">Agosto 2021</p>
-  <p class="">En este tutorial te enseñare como puedes crear tu propio portafolio con Python como backend, algunas cosas basicas de Sass y lo subiremos a la nube con un IAC
-    presonalizado para Azure.<br>Todo sin gastar ni un peso !</p>
+  <p class="">
+    En este tutorial te enseñare como puedes crear tu propia web con Python como
+    backend, algunas cosas basicas de Sass y lo subiremos a la nube con un IAC
+    presonalizado en Pulumi en Azure con typescript por el momento (Prometo
+    subir pronto la version con Python).<br />Todo sin gastar ni un peso !
+  </p>
+  <h2>Empecemos ! - Docker y Vs-Code</h2>
+  <p>
+    Vamos a instalar Docker par nuestro ambiante local creando un devcontainer
+    <em
+      ><b
+        >(recomiendo no usar WSL en windows en mi experiencia me he enfrentado a
+        muchos problemas molestos)</b
+      ></em
+    >
+    les dejo el link
+    <a href="https://code.visualstudio.com/docs/remote/containers"
+      >aqui para mas informacion</a
+    >, entonces vamos a usar vs-code como IDE puedes conseguirlo
+    <a href="https://code.visualstudio.com/download">aqui en eeste link</a>
+    una vez instales el IDE vamos a instalar la extension para contenedores de
+    vs-code
+    <a href="vscode:extension/ms-vscode-remote.remote-containers"
+      >aqui en este link</a
+    >
+    y veras lo sigueinte en la parte de abajo a la izquierda del vs-code <br />
+    <img src="/static/dist/images/vs-code-0.png" />
+    <br />
+    El siguiente paso es configurar nuestro devcontainer Debes tener Docker
+    abierto de lo contrario veras el siguiente error:
+    <img src="/static/dist/images/vs-code-3.png" /> <br />
+    para eso debemos abrir la lista de comandos de vs-code con la siguiente
+    combinacion de teclas: ctrl + shift + p de aqui en adelante cuando nombre la
+    consola de vs-code hare referencia a esa combinancion de teclas asi que
+    debes tenerlo en cuenta.
+    <br />
+    Una vez abras la ventana de comandos escribimos 'Try sample' y buscamos la
+    opcion 'Remote-Containers: Try a Sample' y haremos click o enter, luego te
+    va a preguntar que tipo de contenedor quieres, para esta ocacion escogeremos
+    'Python' asi como en la siguiente imagen:
+    <img src="/static/dist/images/vs-code-1.png" />
+    <br />
+    una vez hagamos click el vs code nos va a mostrar un mensaje abajo a la
+    derecha como este
+    <img src="/static/dist/images/vs-code-2.png" />
+    <br />
+    Si eres curioso y quieres ver que esta pasando mientras el contenedor se
+    crea puedes hacer click en el mensaje lo caul te mostrara una consola con el
+    progreso de la creacion de la imagen de docker<img
+      src="/static/dist/images/vs-code-4.png"
+    />
+    <br />
+    mientras tanto puedes ver un video por que esto se demora un poco, si quiers
+    una recomendacion te dejo este video del fedelobo para que pases el tiempo:
+    <br />
+    <iframe
+      width="560"
+      height="315"
+      src="https://www.youtube.com/embed/d4jGDwUmGLA"
+      title="YouTube video player"
+      frameborder="0"
+      allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+      allowfullscreen
+    ></iframe>
+    <br />
+    Cuando el rpoceso termine vas a dar click en el boton de nueva consola
+    <img src="/static/dist/images/vs-code-5.png" />
+    <br />
+    y veras que se abre una consola en un directorio llamado workspace, eso
+    quiere decir que en este momento ya contamos con nuestro devcontainer y con
+    esto podemos empezar a configurarlo
+    <img src="/static/dist/images/vs-code-6.png" />
+    <br />
+    ahora que ya funciona nuestra maquina vamos a editarla un poco, el ejemplo
+    que escogimos anteriormente de Python nos va a crear una carpeta llamada
+    .devcontainer vamos a entrar a esa carpeta y vamos a ver un archivo llamado
+    'devcontainer.json' el cual vamos a editar de la siguiente forma:
+  </p>
+  <pre class="language-json line-numbers"><code>
+// For format details, see https://aka.ms/devcontainer.json. For config options, see the README at:
+// https://github.com/microsoft/vscode-dev-containers/tree/v0.187.0/containers/python-3
+{
+  "name": "Python 3",
+  "dockerComposeFile": "docker-compose.yml",
+  "service": "app",
+  "workspaceFolder": "/workspace",
+  // Set *default* container specific settings.json values on container create.
+  "settings": {
+    "search.exclude": {
+      "**/node_modules": true
+    },
+    "python.pythonPath": "/usr/local/bin/python",
+    "python.languageServer": "Pylance",
+    "python.linting.enabled": true,
+    "python.linting.pylintEnabled": true,
+    "python.formatting.autopep8Path": "/usr/local/py-utils/bin/autopep8",
+    "python.formatting.blackPath": "/usr/local/py-utils/bin/black",
+    "python.formatting.yapfPath": "/usr/local/py-utils/bin/yapf",
+    "python.linting.banditPath": "/usr/local/py-utils/bin/bandit",
+    "python.linting.flake8Path": "/usr/local/py-utils/bin/flake8",
+    "python.linting.mypyPath": "/usr/local/py-utils/bin/mypy",
+    "python.linting.pycodestylePath": "/usr/local/py-utils/bin/pycodestyle",
+    "python.linting.pydocstylePath": "/usr/local/py-utils/bin/pydocstyle",
+    "python.linting.pylintPath": "/usr/local/py-utils/bin/pylint"
+  },
+  // Add the IDs of extensions you want installed when the container is created.
+  "extensions": [
+    "ms-python.python",
+    "ms-python.vscode-pylance",
+    "wholroyd.jinja"
+  ],
+  "runArgs": [
+    "--env-file",
+    ".devcontainer/devcontainer.env"
+  ],
+  "remoteUser": "vscode"
+}
+</code></pre>
+  <p>
+    Como puedes ver en el codigo en la seccion settings excuimos la carpeta
+    node_modules, tambein agregamos dockerComposeFile para poder modificar mas a
+    fondo nuestro devcontainer y por ultimo agregamos runArgs el parametro
+    --env-file para asi poder inyectar nuestras variables de entorno a nuestro
+    devcontainer de Docker. Ahora vamos a agregar un archivo llamado
+    docker-compose.yml a nuestra carpeta .devcontainer el cual nos va a permitir
+    editar nuestro contenedor de docker el cual va a quedar de la siguiente
+    forma:
+  </p>
+  <pre class="language-yaml line-numbers"><code>
+version: "3"
+
+services:
+  app:
+    env_file: devcontainer.env
+    build:
+      context: .
+      dockerfile: Dockerfile
+      args:
+        VARIANT: "3.7"
+        INSTALL_NODE: "true"
+        NODE_VERSION: "lts/*"
+    volumes:
+      - ..:/workspace:cached
+      - ./.zshrc:/home/vscode/.zshrc:cached
+      - node-modules-cache:/workspace/node_modules
+      - node-modules-infrastructure-cache:/workspace/iac/node_modules
+
+    # Overrides default command so things don't shut down after the process ends.
+    command: sleep infinity
+
+volumes:
+  node-modules-cache:
+  node-modules-infrastructure-cache:
+</code></pre>
+  <p>
+    Como ven en el archivo vamos a asignarle los siguientes ''args'' los cuales
+    van a ser las variables que nos van a permitir escoger nuestra version de
+    Python con el parametro ''VARIANT'' en este caso vamos a escoger la version
+    3.7 (pueden escoger la que ustedes porefiran) tambien vamos a asignar la
+    variable ''INSTALL_NODE'' en true lo cual va a indicarle a nuestro
+    devcontiner que instale nodejs luego de eso debemos decirle que version de
+    node queremos lo cual haremos con el parametro 'NODE_VERSION' en este caso
+    yo quiero usar la ultima version es decir la "lts/*" si requieren de una
+    version en especifico pueden asignar el numero de version que prefieran.
+    Ahora debemos configurar nuestras variables de entorno para poder trabajar
+    con pulumi, para eso debemos crear una cuenta en pulumi
+    <a href="https://app.pulumi.com/signin?reason=401">aqui</a> luego de
+    registrarse van a ver la siguiente pagina:
+    <img src="/static/dist/images/vs-code-7.png" />
+    <br />
+    Luego de eso vamos a ir a settings y vamos a crear un token
+    <img src="/static/dist/images/vs-code-8.png" />
+    <br />
+    Luego de vas a ver un token como el que te dejo en la imagen a continuacion
+    (no vayas a perder el token o tendras que volver a crear otro por que no es
+    posible recuperarlo)
+    <img src="/static/dist/images/vs-code-9.png" />
+    <br />
+    Vamos a copiar ese token y vamos a crear un archivo llamado
+    'devcontainer.env' con el siguiente contenido:
+  </p>
+  <pre class="language-yaml line-numbers"><code>
+PULUMI_CONFIG_PASSPHRASE=mi-frasesecreta-cualquiera
+PULUMI_ACCESS_TOKEN=aqui-va-el-token-de-pulumi
+</code></pre>
+  <p>
+    Como en este ejemplo vamos a reemplazar 'mi-frasesecreta-cualquiera' por
+    cualquier frase secreta que desees asi mismo reemplazamos
+    'aqui-va-el-token-de-pulumi' con el token que creamos anteriormente. Ahora
+    vamos a crear un archivo llamado 'requirements.txt' el cual va a tener
+    nuestras dependencias de Python. Por el momento va a quedar vacio y luego lo
+    llenaremos, ahora si, vamos a configurar nuestro Dockefile de la siguiente
+    forma:
+  </p>
+  <pre
+    class="language-yaml line-numbers"
+  ><code># See here for image contents: https://github.com/microsoft/vscode-dev-containers/tree/v0.187.0/containers/python-3/.devcontainer/base.Dockerfile
+
+# Aqui indicamos la imagen que vamos a tomar en este caso viene del devcontainer que tomamos de ejemplo en los pasos anteriores
+FROM mcr.microsoft.com/vscode/devcontainers/python:0-${VARIANT}
+
+# Aqui instalamos nuestra version de nodejs
+RUN if [ "${INSTALL_NODE}" = "true" ]; then su vscode -c "umask 0002 && . /usr/local/share/nvm/nvm.sh && nvm install ${NODE_VERSION} 2>&1"; fi
+# Aqui instalamos los paquetes necesarios del Sistema Operativo para asi poder trabajar como si estuviese en un servidor convensional
+RUN apt-get update \
+  && apt-get -y install --no-install-recommends \
+  curl \
+  git-core \
+  gnupg \
+  locales \
+  zsh \
+  wget \
+  tree \
+  jq \
+  ca-certificates \
+  apt-transport-https \
+  lsb-release \
+  azure-cli
+
+# Aqui vamos a copiar el archivo requirements.txt a una carpeta temporal para luego instalar las dependencias
+COPY requirements.txt /tmp/pip-tmp/
+# Aqui instalaremos las dependencias listadas en nuestro archivo requirements.txt
+RUN pip3 --disable-pip-version-check --no-cache-dir install -r /tmp/pip-tmp/requirements.txt && rm -rf /tmp/pip-tmp
+
+#Aqui vamos a decirle a nuestro docker que el directorio principal va a ser nuestro /home/vscode
+WORKDIR /home/vscode
+# Aqui vamos a instalar Pulumi
+RUN if [ "$PULUMI_VERSION" = "latest" ]; then \
+  curl -fsSL https://get.pulumi.com/ | bash; \
+  else \
+  curl -fsSL https://get.pulumi.com/ | bash -s -- --version $(echo $PULUMI_VERSION | cut -c 2-); \
+  fi && \
+  mv ~/.pulumi/bin/* /usr/bin
+
+# Aqui vamos a instalar yarn y azure las cuales usaremos mas adelante
+RUN yarn global add \ 
+  azure-functions-core-tools@3 --unsafe-perm true
+</code></pre>
+  <p>
+    Ahora vamos a crear un archivo llamado '.zshrc' el cual nos va a permitir
+    indicarle a nuestro SO comandos adicionales y/o opciones de la siguiente
+    forma:
+  </p>
+  <pre class="language-yaml line-numbers"><code>DISABLE_AUTO_UPDATE=true
+DISABLE_UPDATE_PROMPT=true
+
+#aqui agregamos pulumi como un comando global 
+export PATH=$PATH:~/.pulumi/bin
+</code></pre>
+  <p>
+    Por ultimo y opcional en caso de que uses github, vamos a agregar un archivo
+    llamado '.gitignore' y vamos a ignorar nuestros archivos .env
+  </p>
+  <pre class="language-yaml line-numbers"><code>*.env
+</code></pre>
+  <p>
+    Al final vaa quedar una estructura como esta:<br />
+    <img src="/static/dist/images/vs-code-10.png" /> <br />
+    Ahora si con todo esto vamos a ver una barra verde en la parte inferior
+    izquierda de nuestreo visualstudio code y vamos a darle click y
+    seleccionamos 're open in container':
+    <img src="/static/dist/images/vs-code-11.png" />
+    <br />
+    Una vez termine ya estaremos listos para empezar a trabajar en nuestro blog !
+  </p>
+  <h2>A darle atomos !</h2>
+  <p>
+    Ahora si vamos a empezar a darle al codigo ! Dentro de nuestra carpeta
+    principal vamos a crear los directorios necesarios para empezar a trabajar,
+    vamos a crear una carpeta app y una carpeta iac. La carpeta app es donde va
+    a vivir nuestro codigo fuente y la carpeta iac es donde va a vivir nuestro
+    codigo de pulumi el cual maneja nuestra infraestructura como codigo
+  </p>
+  <ul>
+    <li>
+      Docker devcontainer: son imagenes de docker que nos van a facilitar la
+      vida a la hora del desarrollo por lo que nos va a permitir guardar todas
+      nuestras dependencias en un ambiante aislado y asi no tener que lidiar con
+      cambios de dependencias (NPM, Python, ETC) en nuestra maquina de
+      desarrollo
+    </li>
+  </ul>
+
+  <pre class="language-scss line-numbers">
+    <code>
+$nice-blue: hsl(198, 47%, 2%);
+
+div {
+	background: $nice-blue;
+}
+</code>
+</pre>
+  <pre class="language-javascript line-numbers"><code>
+alert('it works!');
+</code></pre>
 </section>
 {% endblock %}

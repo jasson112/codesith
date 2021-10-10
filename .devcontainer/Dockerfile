@@ -1,14 +1,11 @@
 # See here for image contents: https://github.com/microsoft/vscode-dev-containers/tree/v0.187.0/containers/python-3/.devcontainer/base.Dockerfile
 
-# [Choice] Python version: 3, 3.9, 3.8, 3.7, 3.6
-ARG VARIANT="3.7"
+# Aqui indicamos la imagen que vamos a tomar en este caso viene del devcontainer que tomamos de ejemplo en los pasos anteriores
 FROM mcr.microsoft.com/vscode/devcontainers/python:0-${VARIANT}
 
-# [Option] Install Node.js
-ARG INSTALL_NODE="true"
-ARG NODE_VERSION="lts/*"
+# Aqui instalamos nuestra version de nodejs
 RUN if [ "${INSTALL_NODE}" = "true" ]; then su vscode -c "umask 0002 && . /usr/local/share/nvm/nvm.sh && nvm install ${NODE_VERSION} 2>&1"; fi
-# Installing additional OS Packages
+# Aqui instalamos los paquetes necesarios del Sistema Operativo para asi poder trabajar como si estuviese en un servidor convensional
 RUN apt-get update \
   && apt-get -y install --no-install-recommends \
   curl \
@@ -24,17 +21,14 @@ RUN apt-get update \
   lsb-release \
   azure-cli
 
-# [Optional] If your pip requirements rarely change, uncomment this section to add them to the image.
+# Aqui vamos a copiar el archivo requirements.txt a una carpeta temporal para luego instalar las dependencias
 COPY requirements.txt /tmp/pip-tmp/
+# Aqui instalaremos las dependencias listadas en nuestro archivo requirements.txt
 RUN pip3 --disable-pip-version-check --no-cache-dir install -r /tmp/pip-tmp/requirements.txt && rm -rf /tmp/pip-tmp
-# [Optional] Uncomment this section to install additional OS packages.
-# RUN apt-get update && export DEBIAN_FRONTEND=noninteractive \
-#     && apt-get -y install --no-install-recommends <your-package-list-here>
 
-# [Optional] Uncomment this line to install global node packages.
-# RUN su vscode -c "source /usr/local/share/nvm/nvm.sh && npm install -g <your-package-here>" 2>&1
+#Aqui vamos a decirle a nuestro docker que el directorio principal va a ser nuestro /home/vscode
 WORKDIR /home/vscode
-# Install Pulumi
+# Aqui vamos a instalar Pulumi
 RUN if [ "$PULUMI_VERSION" = "latest" ]; then \
   curl -fsSL https://get.pulumi.com/ | bash; \
   else \
@@ -42,6 +36,6 @@ RUN if [ "$PULUMI_VERSION" = "latest" ]; then \
   fi && \
   mv ~/.pulumi/bin/* /usr/bin
 
-# Install global tools
+# Aqui vamos a instalar yarn y azure las cuales usaremos mas adelante
 RUN yarn global add \ 
   azure-functions-core-tools@3 --unsafe-perm true
